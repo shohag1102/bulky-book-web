@@ -28,6 +28,10 @@ namespace BulkyBookWeb.Controllers
             {
                 ModelState.AddModelError("name", "Name must be different from display order");
             }
+            if(category.Name != null && category.Name.ToLower() == "test")
+            {
+                ModelState.AddModelError("", "Test is not a valid category");
+            }
             if (ModelState.IsValid)
             {
                 _db.Categories.Add(category);
