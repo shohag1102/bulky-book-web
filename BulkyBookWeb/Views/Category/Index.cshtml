@@ -18,6 +18,7 @@
             <tr>
                 <th>Category Name</th>
                 <th>Display Order</th>
+                <th class="text-center" style="width: 150px;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,14 @@
                     <tr>
                         <td>@item.Name</td>
                         <td>@item.DisplayOrder</td>
+                        <td class="text-center">
+                            <a asp-controller="Category" asp-action="Edit" asp-route-catId="@item.Id" class="btn btn-sm btn-outline-primary" title="Edit">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
                     </tr>
                 }
             }
