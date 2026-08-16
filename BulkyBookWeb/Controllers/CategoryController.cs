@@ -1,6 +1,7 @@
 ﻿using BulkyBookWeb.Data;
 using BulkyBookWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BulkyBookWeb.Controllers
 {
@@ -32,6 +33,7 @@ namespace BulkyBookWeb.Controllers
             {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -59,10 +61,41 @@ namespace BulkyBookWeb.Controllers
             {
                 _db.Categories.Update(category);
                 _db.SaveChanges();
+                TempData["success"] = "Category edited successfully";
                 return RedirectToAction("Index");
             }
             return View();
 
         }
+
+        public IActionResult Delete(int? catId)
+        {
+            if (catId == null || catId == 0)
+            {
+                return NotFound();
+            }
+            Category? categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == catId);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? catId)
+        {
+            Category? category = _db.Categories.Find(catId);
+            if(category == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(category);
+            _db.SaveChanges();
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Index");
+
+        }
+
     }
 }
