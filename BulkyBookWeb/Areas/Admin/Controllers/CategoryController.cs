@@ -34,7 +34,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 _unitOfWork.Category.Add(category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index), new { area = "Admin" });
             }
             return View();
 
@@ -59,10 +59,10 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(category);
+                _unitOfWork.Category.Update(category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category edited successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index), new { area = "Admin" });
             }
             return View();
 
@@ -90,10 +90,10 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            _unitOfWork.Category.Add(category);
+            _unitOfWork.Category.Remove(category);
             _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index), new { area = "Admin" });
 
         }
 

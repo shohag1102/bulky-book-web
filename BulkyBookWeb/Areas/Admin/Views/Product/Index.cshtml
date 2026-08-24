@@ -1,0 +1,244 @@
+﻿@using Bulky.Models.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Product List";
+}
+
+
+<div class="container-fluid px-4 py-4">
+
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">Product List</h2>
+            <p class="text-muted mb-0">
+                Manage your products and pricing information.
+            </p>
+        </div>
+
+        <div>
+            <a asp-area="Admin"
+               asp-controller="Product"
+               asp-action="Create"
+               class="btn btn-primary px-4">
+                <i class="bi bi-plus-lg me-1"></i>
+                Create New Product
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- Product List Card -->
+    <div class="card border-0 shadow-sm">
+
+        <!-- Card Header -->
+        <div class="card-header bg-white border-0 py-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0 fw-semibold">
+                    <i class="bi bi-box-seam text-primary me-2"></i>
+                    Products
+                </h5>
+
+                <span class="badge bg-primary rounded-pill px-3 py-2">
+                    @(Model?.Count ?? 0) Products
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Product Table -->
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th class="ps-4" style="width: 60px;">
+                                #
+                            </th>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                ISBN
+                            </th>
+
+                            <th>
+                                Author
+                            </th>
+
+                            <th class="text-end">
+                                List Price
+                            </th>
+
+                            <th class="text-end">
+                                1–50
+                            </th>
+
+                            <th class="text-end">
+                                50+
+                            </th>
+
+                            <th class="text-end">
+                                100+
+                            </th>
+
+                            <th class="text-center pe-4" style="width: 130px;">
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @if (Model != null && Model.Any())
+                        {
+                            var index = 1;
+
+                            foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <!-- Serial -->
+                                    <td class="ps-4 text-muted fw-semibold">
+                                        @index
+                                    </td>
+
+
+                                    <!-- Product -->
+                                    <td>
+
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="bg-primary bg-opacity-10 text-primary
+                                                        rounded d-flex align-items-center
+                                                        justify-content-center me-3"
+                                                 style="width:44px;height:44px;">
+
+                                                <i class="bi bi-book fs-5"></i>
+
+                                            </div>
+
+                                            <div>
+
+                                                <div class="fw-semibold">
+                                                    @item.Title
+                                                </div>
+
+                                                @if (!string.IsNullOrWhiteSpace(item.Description))
+                                                {
+                                                    <small class="text-muted">
+                                                        @(item.Description.Length > 60
+                                                            ? item.Description.Substring(0, 60) + "..."
+                                                            : item.Description)
+                                                    </small>
+                                                }
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- ISBN -->
+                                    <td>
+                                        <span class="badge bg-light text-dark border">
+                                            @item.ISBN
+                                        </span>
+                                    </td>
+
+
+                                    <!-- Author -->
+                                    <td>
+                                        @item.Author
+                                    </td>
+
+
+                                    <!-- List Price -->
+                                    <td class="text-end fw-semibold">
+                                        $@item.ListPrice.ToString("0.00")
+                                    </td>
+
+
+                                    <!-- Price 1-50 -->
+                                    <td class="text-end">
+                                        $@item.Price.ToString("0.00")
+                                    </td>
+
+
+                                    <!-- Price 50+ -->
+                                    <td class="text-end">
+                                        $@item.Price50.ToString("0.00")
+                                    </td>
+
+
+                                    <!-- Price 100+ -->
+                                    <td class="text-end">
+                                        $@item.Price100.ToString("0.00")
+                                    </td>
+
+
+                                    <!-- Actions -->
+                                    <td class="text-center pe-4">
+
+                                        <div class="btn-group">
+
+                                            <a asp-area="Admin"
+                                               asp-controller="Product"
+                                               asp-action="Edit"
+                                               asp-route-productId="@item.Id"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="Edit">
+
+                                                <i class="bi bi-pencil-square"></i>
+
+                                            </a>
+
+                                            <a asp-area="Admin"
+                                               asp-controller="Product"
+                                               asp-action="Delete"
+                                               asp-route-productId="@item.Id"
+                                               class="btn btn-sm btn-outline-danger"
+                                               title="Delete">
+
+                                                <i class="bi bi-trash"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                index++;
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

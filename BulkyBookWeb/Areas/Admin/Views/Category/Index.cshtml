@@ -7,7 +7,7 @@
             <h3 class="mb-0">Category List</h3>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+            <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="btn btn-primary">
                 <i class="bi bi-file-earmark-plus-fill"></i> Create New Category
             </a>
         </div>
@@ -30,10 +30,10 @@
                         <td>@item.Name</td>
                         <td>@item.DisplayOrder</td>
                         <td class="text-center">
-                            <a asp-controller="Category" asp-action="Edit" asp-route-catId="@item.Id" class="btn btn-sm btn-outline-primary" title="Edit">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-catId="@item.Id" class="btn btn-sm btn-outline-primary" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a asp-controller="Category" asp-action="Delete" asp-route-catId="@item.Id" class="btn btn-sm btn-outline-danger" title="Delete">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-catId="@item.Id" class="btn btn-sm btn-outline-danger" title="Delete">
                                 <i class="bi bi-trash"></i>
                             </a>
                         </td>
